@@ -68,10 +68,20 @@ public struct SeR: View {
 
                     // زر التأكيد (✅)
                     Button(action: {
+                        // 1️⃣ إضافة النبات
                         plantData.plants.append(plant)
-                           onDone()
-                        dismiss()
+                        
+                        // 2️⃣ استدعاء onDone
+                        onDone()
+                        
+                        // 3️⃣ جدولة الإشعار بعد 40 ثانية
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 5) {
+                            NotificationManager.shared.sendGeneralNotification()
+                        }
 
+                        
+                        // 4️⃣ إغلاق الشاشة
+                        dismiss()
                     }){
                         Image(systemName: "checkmark")
                             .font(.system(size: 18, weight: .medium))
@@ -203,8 +213,10 @@ public struct SeR: View {
                 .padding(.top, 40)
 
                 Spacer()
+                
             }
         }
+        
     }
 }
 
